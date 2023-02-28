@@ -1,4 +1,7 @@
-.DS_Store
-.class
+*.DS_Store
+*.class
 persistence.xml
-.project
+*.project
+/build/
+/target/
+*.jar
