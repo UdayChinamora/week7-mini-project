@@ -5,3 +5,4 @@ persistence.xml
 /build/
 /target/
 *.jar
+package-info.java
