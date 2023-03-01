@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 import model.garage;
 
 public class garageHelper {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("mini_project");
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("week7-mini-project");
 	
 	public void createGarage(garage newGarage) {
 		EntityManager em = emfactory.createEntityManager();

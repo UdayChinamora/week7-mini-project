@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
 import model.car;
 
 public class carHelper {
-	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("mini_project");
+	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("week7-mini-project");
 	
 	public void insertCar(car newCar) {
 		EntityManager em = emfactory.createEntityManager();
