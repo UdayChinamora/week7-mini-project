@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -19,6 +20,7 @@ import model.car;
 public class carHelper {
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("week7-mini-project");
 	
+	//Inserts new car into car table
 	public void insertCar(car newCar) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -27,6 +29,7 @@ public class carHelper {
 		em.close();
 	}
 	
+	//Retrieves list of cars from car table 
 	public List<car> getAllCars() {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -36,9 +39,7 @@ public class carHelper {
 		return allCars;
 	}
 	
-	
-	
-	
+	//Deletes a car from car table
 	public void deleteCar(car toDelete) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -63,6 +64,9 @@ public class carHelper {
 
 	}
 
+	/*
+	 * Should be used when car already exists 
+	 */
 	public car searchForCarById(int idToEdit) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -94,12 +98,37 @@ public class carHelper {
 	public List<car> searchForCarByModel(String modelName) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		TypedQuery<car> typedQuery = em.createQuery("select li from car li where li.model = :selectedModel", car.class);
+		TypedQuery<car> typedQuery = em.createQuery("SELECT li FROM car li WHERE li.model = :selectedModel", car.class);
 		typedQuery.setParameter("selectedModel", modelName);
 
 		List<car> foundCars = typedQuery.getResultList();
 		em.close();
 		return foundCars;
+	}
+	
+	
+	//Queries car table for duplicate cars attempting to be added. Returns boolean
+	public boolean searchCarMakeModelYear(car carToFind) {
+		EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		
+		TypedQuery<car> typedQuery = em.createQuery("SELECT aCar FROM car aCar WHERE aCar.model = :CTFmodel AND aCar.make = :CTFmake AND aCar.year = :CTFyear", car.class);
+		typedQuery.setParameter("CTFmodel", carToFind.getModel());
+		typedQuery.setParameter("CTFmake", carToFind.getMake());
+		typedQuery.setParameter("CTFyear", carToFind.getYear());
+		
+		typedQuery.setMaxResults(1);
+		
+		car foundCar;
+		
+		try {
+			foundCar = typedQuery.getSingleResult();
+			return true;
+		} catch (NoResultException e) {
+			
+		}
+		
+		return false;
 	}
 
 	public void cleanUp(){

@@ -39,9 +39,8 @@ public class NavigationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		carHelper dao = new carHelper();
-		String act = request.getParameter("doThisTocar");
+		String act = request.getParameter("doThisToCar");
 
-	
 		String path = "/ViewAllCarsServlet";
 
 		if (act.equals("delete")) {
@@ -66,7 +65,6 @@ public class NavigationServlet extends HttpServlet {
 
 		} else if (act.equals("add")) {
 			path = "/addCar.html";
-
 		}
 
 		getServletContext().getRequestDispatcher(path).forward(request, response);

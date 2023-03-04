@@ -11,9 +11,10 @@ import javax.persistence.Persistence;
 
 import model.garage;
 
-public class garageHelper {
+public class GarageHelper {
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("week7-mini-project");
 	
+	//Inserts new garage into garage table
 	public void createGarage(garage newGarage) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
