@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,52 +12,43 @@ import javax.servlet.http.HttpServletResponse;
 import model.car;
 
 /**
- * Servlet implementation class EditCarServlet
+ * Servlet implementation class AddGarageInfoServlet
  */
-@WebServlet("/EditCarServlet")
-public class EditCarServlet extends HttpServlet {
+@WebServlet("/AddGarageInfoServlet")
+public class AddGarageInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditCarServlet() {
+    public AddGarageInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
-
-	/**
+    
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		//Adds list of cars to select on 'addCar.html'
+		carHelper ch = new carHelper();
+		String path = "/add-garage.jsp";
+		
+		List<car> allCars = ch.getAllCars();
+		
+		request.setAttribute("allCars", allCars);
+		
+		getServletContext().getRequestDispatcher(path).forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		carHelper dao = new carHelper();
+		// TODO Auto-generated method stub
+		doGet(request, response);
 
-		String make = request.getParameter("make");
-		String model = request.getParameter("model");
-		Integer year = Integer.parseInt(request.getParameter("year"));
-		Integer tempId = Integer.parseInt(request.getParameter("id"));
-
-		/*
-		 * Searches for and updates already existing car
-		 */
-		car carToUpdate = dao.searchForCarById(tempId);
-		carToUpdate.setModel(model);
-		carToUpdate.setMake(make);
-		carToUpdate.setYear(year);
-
-		dao.updateCar(carToUpdate);
-
-		getServletContext().getRequestDispatcher("/ViewAllCarsServlet").forward(request, response);
-
-}
-
+	}
 }

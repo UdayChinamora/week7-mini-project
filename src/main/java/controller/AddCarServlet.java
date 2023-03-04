@@ -32,20 +32,23 @@ public class AddCarServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		carHelper ch = new carHelper();
+		String path = "/addCar.html";
 		
 		String make = request.getParameter("make");
 		String model = request.getParameter("model");
 		String value = request.getParameter("year");
 		int year = Integer.parseInt(value);
-		if (make.isEmpty() || model.isEmpty() || year ==0 ||make == null || model == null) {
-			getServletContext().getRequestDispatcher("/addCar.html").forward(request, response);
-		} else {
-			car li = new car(make, model,year);
-			carHelper dao = new carHelper();
-			dao.insertCar(li);
-
-			getServletContext().getRequestDispatcher("/addCar.html").forward(request, response);
-		}
+		
+		//checks to see if car already exists in car table
+		car doesCarExist = new car(make, model, year);
+		
+		//If exists then car not inserted, else its inserted
+		if (!ch.searchCarMakeModelYear(doesCarExist)) {
+			ch.insertCar(doesCarExist);
+		} 
+		
+		getServletContext().getRequestDispatcher(path).forward(request, response);
 	}
 
 }
