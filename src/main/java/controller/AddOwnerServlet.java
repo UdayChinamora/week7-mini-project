@@ -27,26 +27,29 @@ public class AddOwnerServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		OwnerHelper oh = new OwnerHelper();
+		String path = "/index.html";
 		
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-	
-		if (name.isEmpty() || email.isEmpty() ||name == null || email == null) {
-			getServletContext().getRequestDispatcher("/car.html").forward(request, response);
-		} else {
-			owner li = new owner(name, email);
-			OwnerHelper dao = new OwnerHelper();
-			dao.insertOwner(li);
-
-			getServletContext().getRequestDispatcher("/car.html").forward(request, response);
-		}
+		
+		/*
+		 * Checks owner table if email already exists
+		 * If it does then that user is return and name is updated
+		 * If it doesn't a new owner is created and inserted
+		 */
+		
+		owner newOwner = oh.searchOwnerByEmail(email);
+		newOwner.setEmail(email);
+		newOwner.setName(name);
+		oh.updateOwner(newOwner);
+		
+		getServletContext().getRequestDispatcher(path).forward(request, response);
 	}
 }

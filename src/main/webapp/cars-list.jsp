@@ -19,7 +19,7 @@
 <div class="container">
 <h2>Cars List</h2>
 
-<form method = "post" action = "navigationServlet" >
+<form method = "post" action = "NavigationServlet" >
 <table class="table table-striped table-hover">
 <c:forEach items="${requestScope.allCars}" var="currentcar">
 <tr>

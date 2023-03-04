@@ -29,7 +29,9 @@ public class car {
 	//new car form will require all 3
 	//can search car by any of these
 	public car(String make, String model, int year) {
-		
+		this.make = make;
+		this.model = model;
+		this.year = year;
 	}
 	
 	
