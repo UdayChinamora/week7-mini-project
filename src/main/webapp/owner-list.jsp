@@ -13,27 +13,26 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
 
 
-<title>Cars List</title>
+<title>Owner List</title>
 </head>
 <body>
 <div class="container">
-<h2>Cars List</h2>
+<h2>Owner List</h2>
 
-<form method = "post" action = "CarNavigationServlet" >
+<form method = "post" action = "OwnerNavigationServlet" >
 <table class="table table-striped table-hover">
-<c:forEach items="${requestScope.allCars}" var="currentcar">
-<tr>
-   <td><input type="radio" name="id" value="${currentcar.id}" ></td>
-   <td>${currentcar.make}</td>
-   <td>${currentcar.model}</td>
-    <td>${currentcar.year}</td>
-   </tr>
+<c:forEach items="${requestScope.allOwners}" var="currentOwner">
+	<tr>
+   		<td><input type="radio" name="id" value="${currentOwner.id}" ></td>
+   		<td>${currentOwner.name}</td>
+   		<td>${currentOwner.email}</td>
+    </tr>
 </c:forEach>
 </table>
 <br />
-<input type = "submit" value = "edit" name="doThisToCar" class="btn btn-warning">
-<input type = "submit" value = "delete" name="doThisToCar" class="btn btn-danger">
-<input type="submit" value = "add" name = "doThisToCar" class="btn btn-success">
+<input type = "submit" value = "edit" name="doThisToOwner" class="btn btn-warning">
+<input type = "submit" value = "delete" name="doThisToOwner" class="btn btn-danger">
+<input type="submit" value = "add" name = "doThisToOwner" class="btn btn-success">
 
 </form>
 <a href = "index.html"><input type="button" value="Home"></a>

@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.owner;
 
-
-
 /**
- * Servlet implementation class AddOwnerServlet
+ * Servlet implementation class EditOwnerSerlvet
  */
-@WebServlet("/AddOwnerServlet")
-public class AddOwnerServlet extends HttpServlet {
+@WebServlet("/EditOwnerServlet")
+public class EditOwnerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddOwnerServlet() {
+    public EditOwnerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +27,24 @@ public class AddOwnerServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
 		OwnerHelper oh = new OwnerHelper();
 		String path = "/ViewAllOwnersServlet";
 		
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
+		int id = Integer.parseInt(request.getParameter("id"));
 		
-		/*
-		 * Checks owner table if email already exists
-		 * If it does then that user is return and name is updated
-		 * If it doesn't a new owner is created and inserted
-		 */
+		owner ownerToUpdate = oh.searchOwnerById(id);
 		
-		owner newOwner = oh.searchOwnerByEmail(email);
-		newOwner.setEmail(email);
-		newOwner.setName(name);
-		oh.updateOwner(newOwner);
+		ownerToUpdate.setEmail(email);
+		ownerToUpdate.setName(name);
+		
+		oh.updateOwner(ownerToUpdate);
 		
 		getServletContext().getRequestDispatcher(path).forward(request, response);
 	}
+
 }

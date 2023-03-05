@@ -12,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 
@@ -39,10 +40,33 @@ public class carHelper {
 		return allCars;
 	}
 	
+	public void deleteCarFromGarages(int id) {
+		EntityManager em = emfactory.createEntityManager();
+		em.getTransaction().begin();
+		
+		
+//		TypedQuery<car>typedQuery = em.createQuery("SELECT aCar FROM garages_car aCar WHERE aCar.id = :idToDel", car.class);
+//		Query typedQuery = em.createNativeQuery("SELECT * FROM  garages_car WHERE cars_id = " + id);
+		
+//		typedQuery.setParameter("idToDel", id);
+		
+//		List<car> allCarsToDel = typedQuery.getResultList();		
+		
+//		System.out.println(allCarsToDel.toString() + "EYOOOOOOO" + id);
+//		
+//		for (car toDel : allCarsToDel) {
+//			em.remove(toDel);
+//		}
+		
+	}
+	
 	//Deletes a car from car table
 	public void deleteCar(car toDelete) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
+		
+		this.deleteCarFromGarages(toDelete.getId());
+		
 		TypedQuery<car> typedQuery = em.createQuery(
 				"select li from car li where li.make = :selectedMake and li.model = :selectedModel and li.year = :selectedYear",
 				car.class);
