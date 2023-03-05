@@ -31,7 +31,7 @@
 </form>
 <br />
 
-<a href = "/ViewAllOwnersServlet"><input type="button" value="View the complete List"></a>
+<a href = "ViewAllOwnersServlet"><input type="button" value="View the complete List"></a>
 <a href = "index.html"><input type="button" value="Home"></a>
 
 <br />

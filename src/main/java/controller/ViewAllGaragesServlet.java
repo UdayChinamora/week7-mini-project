@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ViewAllOwnersServlet
+ * Servlet implementation class ViewAllGaragesServlet
  */
-@WebServlet("/ViewAllOwnersServlet")
-public class ViewAllOwnersServlet extends HttpServlet {
+@WebServlet("/ViewAllGaragesServlet")
+public class ViewAllGaragesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ViewAllOwnersServlet() {
+    public ViewAllGaragesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,10 +27,15 @@ public class ViewAllOwnersServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		OwnerHelper oh = new OwnerHelper();
-		String path = "/owner-list.jsp";
+		GarageHelper gh = new GarageHelper();
+		String path = "/garage-lists.jsp";
 		
-		request.setAttribute("allOwners", oh.getAllOwners());
+		
+		request.setAttribute("allGarages", gh.getAllGarages());
+		
+		if(gh.getAllGarages().isEmpty()) {
+			path = "/AddGarageInfoServlet";
+		}
 		
 		getServletContext().getRequestDispatcher(path).forward(request, response);
 	}

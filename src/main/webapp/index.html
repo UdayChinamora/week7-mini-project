@@ -2,17 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Car Management Homepage</title>
+<style>
+	body {
+		display:flex;
+		align-items:center;
+		justify-content:center;
+		height: 90vh;
+		flex-direction: column;
+	}
+	
+</style>
 </head>
 <body>
-	<h1>Hello</h1>
-	<form method="post" action="NavigationServlet"> 
+	<h1>Welcome to the Car Management Home page</h1>
+	<form method="post" action="CarNavigationServlet"> 
 		
+		<h1>Add or view Cars</h1>
 		<input type="submit" value="add" name="doThisToCar">
-		<input type="submit" value="edit" name="doThisToCar">
-		<input type="submit" value="delete" name="doThisToCar">
+		<a href="ViewAllCarsServlet"><input type="button" value="View All Cars"></a>
+		
+		<h1>Add or view Owners</h1>
 		<a href="addOwner.jsp"><input type="button" value="Add Owner"></a>
+		<a href="ViewAllOwnersServlet"><input type="button" value="View All Owners"></a>
+		
+		<h1>Add or view Garages</h1>
 		<a href="AddGarageInfoServlet"><input type="button" value="Add garage"></a>
+		<a href="ViewAllGaragesServlet"><input type="button" value="View All Garages"></a>
+		
 	</form>
 </body>
 </html>

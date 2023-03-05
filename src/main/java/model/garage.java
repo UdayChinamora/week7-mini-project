@@ -27,7 +27,7 @@ public class garage {
 	private String garageName;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private owner garageOwner;
-	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, orphanRemoval=true)
 	private List<car> cars;
 	
 	public garage() {}

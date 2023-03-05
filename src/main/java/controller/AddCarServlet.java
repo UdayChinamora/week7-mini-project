@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,15 +35,17 @@ public class AddCarServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		carHelper ch = new carHelper();
-		String path = "/addCar.html";
+		String path = "/ViewAllCarsServlet";
 		
 		String make = request.getParameter("make");
 		String model = request.getParameter("model");
 		String value = request.getParameter("year");
 		int year = Integer.parseInt(value);
 		
+		LocalDate ld = LocalDate.now();
+		
 		//checks to see if car already exists in car table
-		car doesCarExist = new car(make, model, year);
+		car doesCarExist = new car(make, model, year, ld);
 		
 		//If exists then car not inserted, else its inserted
 		if (!ch.searchCarMakeModelYear(doesCarExist)) {
