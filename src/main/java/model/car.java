@@ -5,10 +5,14 @@
  */
 package model;
 
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,15 +27,18 @@ public class car {
 	private String model;
 	@Column(name = "YEAR")
 	private int year;
+	@Column(name = "DATE_ADD")
+	private LocalDate date;
 	
 	public car() {}
 	
 	//new car form will require all 3
 	//can search car by any of these
-	public car(String make, String model, int year) {
+	public car(String make, String model, int year, LocalDate date_added) {
 		this.make = make;
 		this.model = model;
 		this.year = year;
+		this.date = date_added;
 	}
 	
 	

@@ -29,8 +29,9 @@ public class owner {
 		this.email = email;
 	}	
 	
-	public owner(String name) {
-		this.name = name;
+	public owner(String email) {
+		this.email = email;
+		this.name = null;
 	}
 	
 	public int getId() {

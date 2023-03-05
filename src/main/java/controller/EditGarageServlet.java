@@ -15,16 +15,16 @@ import model.garage;
 import model.owner;
 
 /**
- * Servlet implementation class AddGarageServlet
+ * Servlet implementation class EditGarageServlet
  */
-@WebServlet("/AddGarageServlet")
-public class AddGarageServlet extends HttpServlet {
+@WebServlet("/EditGarageServlet")
+public class EditGarageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddGarageServlet() {
+    public EditGarageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +35,23 @@ public class AddGarageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		carHelper ch = new carHelper();
-		GarageHelper gh = new GarageHelper();
-		OwnerHelper oh = new OwnerHelper();
-		
 		String path = "/ViewAllGaragesServlet";
 		
-		String garageTitle = request.getParameter("garageTitle");
-		String oEmail = request.getParameter("email");
-		String oName = request.getParameter("name");
+		GarageHelper gh = new GarageHelper();
+		carHelper ch = new carHelper();
+		OwnerHelper oh = new OwnerHelper();
+		
+		String title = request.getParameter("garageTitle");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+	
+		owner someOwner = oh.searchOwnerById(Integer.parseInt(request.getParameter("ownerID")));
+		
+		someOwner.setEmail(email);
+		someOwner.setName(name);
+		
+		int id = Integer.parseInt(request.getParameter("id"));
+
 		
 		String[] select = request.getParameterValues("carsInGarage");
 		List<car> selectedCars = new ArrayList<car>();
@@ -55,16 +63,11 @@ public class AddGarageServlet extends HttpServlet {
 			}
 		}
 		
-		owner someOwner = oh.searchOwnerByEmail(oEmail);
+		garage toEdit = gh.searchById(id);
 		
-		if(someOwner.getName() == null) {
-			someOwner.setName(oName);
-			oh.insertOwner(someOwner);
-		} 
-		
-		garage newGarage = new garage(garageTitle, someOwner, selectedCars);
-		
-		gh.insertGarage(newGarage);
+		toEdit.setCars(selectedCars);
+		toEdit.setGarageName(title);
+		toEdit.setGarageOwner(someOwner);
 		
 		getServletContext().getRequestDispatcher(path).forward(request, response);
 	}

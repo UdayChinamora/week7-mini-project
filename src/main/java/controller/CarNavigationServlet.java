@@ -12,14 +12,14 @@ import model.car;
 /**
  * Servlet implementation class NavigationServlet
  */
-@WebServlet("/NavigationServlet")
-public class NavigationServlet extends HttpServlet {
+@WebServlet("/CarNavigationServlet")
+public class CarNavigationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NavigationServlet() {
+    public CarNavigationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
